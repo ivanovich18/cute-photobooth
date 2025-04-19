@@ -2,11 +2,11 @@
 
 A fun and interactive web-based photobooth application that allows users to capture moments using their camera and generate a unique, customizable photo strip, just like a real photobooth! This project was built as a portfolio piece to showcase frontend development skills.
 
+https://jolly-pegasus-8a88e3.netlify.app/
+
 ## 🔗 Live Demo
 
 You can try the live version of the photobooth here:
-
-[**[Link to Your Deployed App]**](https://your-live-app-url.com)
 
 ## 📸 Features
 
