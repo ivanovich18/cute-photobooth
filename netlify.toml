@@ -1,0 +1,12 @@
+[build]
+  # The command to run to build your project
+  command = "npm run build" # Use "yarn build" if you use yarn
+
+  # The directory to publish after the build process completes
+  publish = "build"
+
+# Redirects and rewrites for your Single-Page Application
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
