@@ -6,7 +6,7 @@ A fun and interactive web-based photobooth application that allows users to capt
 
 You can try the live version of the photobooth here:
 
-https://jolly-pegasus-8a88e3.netlify.app/
+https://ivanovich18.github.io/cute-photobooth/
 
 ## 📸 Features
 
