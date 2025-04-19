@@ -1,38 +1,373 @@
+/* Import cute fonts */
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&family=Mochiy+Pop+One&display=swap');
+
+body {
+  background-color: #f8f0f4; /* Light pinkish background */
+  color: #333; /* Default text color */
+  margin: 0;
+  padding: 0;
+  min-height: 100vh; /* Ensure body covers at least the full viewport height */
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
+  font-family: 'Arial', sans-serif; /* Default fallback font */
+  overflow-y: scroll; /* Enable scrolling on the body */
+}
+
 .App {
   text-align: center;
+  font-family: 'Arial', sans-serif; /* Default fallback font for app text */
+  padding: 20px;
+  max-width: 600px; /* Limit max width for desktop screens for overall content */
+  margin: 0 auto; /* Center the app content block */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.App-header h1 {
+  font-family: 'Lilita One', cursive; /* Apply cute font to header */
+  color: #e91e63; /* Bright pink header color */
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1); /* Subtle shadow */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Camera Section styles */
+.camera-section {
+  margin-bottom: 20px;
+  background-color: #fff; /* White background for the camera area */
+  border-radius: 15px; /* Rounded corners */
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Soft shadow */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.camera-display {
+  width: 100%; /* Make the display take full width of its container */
+  max-width: 400px; /* Limit the max width of the camera preview */
+  margin: 0 auto 15px auto; /* Center the camera display and add space below */
+  position: relative; /* Needed for absolute positioning of overlays */
+   aspect-ratio: 4 / 3; /* Maintain 4:3 aspect ratio for the camera display area */
+   overflow: hidden; /* Hide any overflow if video doesn't fit perfectly */
+   border-radius: 8px; /* Slightly rounded corners for the preview */
+   border: 3px solid #ff69b4; /* Cute pink border around the preview */
+   box-shadow: inset 0 0 5px rgba(0,0,0,0.2); /* Inner shadow for depth */
+   background-color: #000; /* Black background behind the camera feed */
+}
+
+/* Styles for overlays (Loading, Photo Count, Timer) */
+.camera-loading,
+.photo-count-overlay,
+.timer-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  pointer-events: none; /* Allow clicks on elements below the overlay */
+  z-index: 10; /* Ensure overlays are on top */
+  text-align: center; /* Center text horizontally in overlays */
 }
 
-.App-link {
-  color: #61dafb;
+.camera-loading {
+     background: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+     font-size: 1.2em;
+     color: #333;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.photo-count-overlay {
+    background: rgba(255, 105, 180, 0.3); /* Semi-transparent cute pink */
+    color: white;
+    font-weight: bold;
+    font-family: 'Mochiy Pop One', cursive; /* Cute font for count */
+    font-size: 2em;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Text shadow for readability */
+}
+
+.timer-overlay { /* Style for the timer countdown numbers */
+    background: rgba(0, 0, 0, 0.5); /* Dark semi-transparent background */
+    color: white;
+    font-size: 5em; /* Large font size for timer */
+    font-family: 'Mochiy Pop One', cursive; /* Cute font for timer */
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.8); /* Text shadow for readability */
+}
+
+.timer-overlay.ready { /* Style for "GO!" message */
+    font-size: 3em; /* Slightly smaller font for "GO!" */
+    color: lightgreen; /* Green color for "GO!" */
+}
+
+.capture-status-msg { /* Style for status messages below the button during sequence */
+    font-size: 1.2em;
+    color: #5a3e5a; /* Dark purple text color */
+    font-weight: bold;
+    margin-top: 10px;
+    min-height: 1.5em; /* Reserve space to prevent layout shifts */
+}
+
+.max-photos-msg { /* Message when max photos are taken */
+    color: #e91e63; /* Pink message color */
+    font-weight: bold;
+}
+
+
+/* Button styles */
+button {
+    padding: 12px 25px; /* Padding inside buttons */
+    margin: 8px; /* Margin around buttons */
+    font-size: 1.1em;
+    cursor: pointer; /* Indicate clickable */
+    border: none; /* No default border */
+    border-radius: 25px; /* Pill shape */
+    transition: background-color 0.3s ease, transform 0.1s ease; /* Smooth transitions */
+    font-family: 'Lilita One', cursive; /* Cute font for buttons */
+    text-transform: uppercase; /* Uppercase text */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Soft shadow */
+}
+button:disabled {
+    background-color: #cccccc; /* Grey background when disabled */
+    color: #666; /* Darker text when disabled */
+    cursor: not-allowed; /* Show 'not-allowed' cursor */
+    box-shadow: none; /* Remove shadow when disabled */
+    transform: none; /* Prevent hover transform when disabled */
+}
+button:disabled:hover {
+    background-color: #cccccc; /* Ensure background doesn't change on hover when disabled */
+    transform: none; /* Ensure no transform on hover when disabled */
+}
+
+
+.capture-button { /* Style for the main capture/start/resume button */
+    background-color: #ff69b4; /* Hot pink */
+    color: white;
+}
+
+.capture-button:hover:not(:disabled) { /* Apply hover effect only when not disabled */
+    background-color: #ff85c1; /* Lighter pink on hover */
+    transform: translateY(-1px); /* Slight upward lift on hover */
+}
+
+.retake-button { /* Style for the retake button */
+    background-color: #ffb6c1; /* Light pink */
+    color: #5a3e5a; /* Dark purple text */
+}
+.retake-button:hover:not(:disabled) { /* Apply hover effect only when not disabled */
+    background-color: #ffcbd4; /* Lighter pink on hover */
+     transform: translateY(-1px);
+}
+
+.pause-resume-button { /* Style for the Pause/Resume button */
+     background-color: #8a2be2; /* Blue Violet */
+     color: white;
+     margin-bottom: 15px; /* Space below the button */
+}
+.pause-resume-button:hover:not(:disabled) { /* Apply hover effect only when not disabled */
+     background-color: #9b4ef7; /* Lighter blue violet on hover */
+     transform: translateY(-1px);
+}
+
+/* Captured Previews Section */
+.captured-previews {
+  display: flex; /* Use flexbox to arrange previews */
+  justify-content: center; /* Center previews horizontally */
+  gap: 15px; /* Space between previews */
+  margin-top: 20px;
+  margin-bottom: 20px;
+  min-height: 100px; /* Ensure some minimum space for this section */
+  flex-wrap: wrap; /* Allow previews to wrap to the next line on smaller screens */
+}
+
+.captured-previews h4 {
+    width: 100%; /* Title takes full width */
+    margin-bottom: 10px;
+    color: #e91e63; /* Pink title color */
+     font-family: 'Lilita One', cursive; /* Cute font for title */
+}
+
+.preview-item img {
+    /* Adjust preview item size - maybe keep them small and square-ish */
+    width: 80px; /* Fixed width for preview image */
+    height: 80px; /* Fixed height for preview image (making them square) */
+    object-fit: cover; /* Crop image to cover the square preview area */
+    border: 3px solid #ffb6c1; /* Light pink border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Soft shadow */
+    background-color: white; /* Background in case image has transparency */
+}
+.preview-item .preview-placeholder { /* Style for placeholder div if image data is missing */
+     width: 80px;
+     height: 80px; /* Match img size */
+     border: 3px dashed #ccc; /* Dashed grey border */
+     border-radius: 8px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     text-align: center;
+     font-size: 0.8em;
+     color: #999;
+}
+
+
+/* Customization Controls Section */
+.customization-controls {
+    margin: 20px auto; /* Center and add margin */
+    padding: 20px;
+    border: 2px dashed #ffb6c1; /* Cute dashed border */
+    border-radius: 10px;
+    background-color: #fff0f5; /* Lightest pink background */
+    max-width: 400px; /* Limit width of the controls block */
+    text-align: left; /* Align text to the left within this block */
+}
+
+.customization-controls h4 {
+    color: #5a3e5a; /* Dark purple title */
+    margin-top: 0;
+     font-family: 'Lilita One', cursive; /* Cute font for title */
+}
+
+.customization-controls .control-group {
+    margin-bottom: 15px; /* Space between control groups */
+}
+
+.customization-controls label {
+    display: block; /* Label on its own line */
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #e91e63; /* Pink label color */
+}
+
+.customization-controls input[type="text"],
+.customization-controls input[type="color"],
+.customization-controls input[type="number"] {
+    width: calc(100% - 12px); /* Make input fill container width minus padding/border */
+    padding: 8px 5px;
+    border: 1px solid #ffb6c1; /* Light pink border */
+    border-radius: 5px;
+    font-size: 1em;
+     box-sizing: border-box; /* Include padding and border in element's total width */
+}
+.customization-controls input[type="color"] {
+    padding: 4px; /* Adjust padding for color input */
+    height: 35px; /* Give color picker a standard height */
+     width: 60px; /* Give color picker a standard width */
+}
+
+/* Style for the text vertical offset number input */
+.customization-controls input[type="number"] {
+    width: 80px; /* Give number input a specific width */
+}
+
+
+/* Collage Canvas Section styles */
+.collage-section {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.collage-section h3 {
+    color: #5a3e5a; /* Dark purple title */
+    margin-bottom: 15px;
+     font-family: 'Lilita One', cursive; /* Cute font for title */
+}
+
+.canvas-container {
+    width: 100%;
+    /* Adjust max-width to match the display size of the canvas */
+    /* Displaying at half resolution of the 600px width (300px) for screens */
+    max-width: 300px;
+    margin: 0 auto 20px auto; /* Center container and add space below */
+    border: 5px solid #ff69b4; /* Thick pink border for the final strip */
+    border-radius: 10px; /* Rounded corners for the strip container */
+    overflow: hidden; /* Ensures canvas respects border-radius */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Shadow for the strip */
+     /* Maintain the 1:3 aspect ratio for the display container */
+     aspect-ratio: 600 / 1800; /* or 1 / 3 */
+     background-color: #fff; /* White background behind the canvas (shows in padding) */
+     cursor: pointer; /* Indicate the canvas is clickable */
+}
+
+/* Download button is now in the finished-strip-actions div */
+/* View Strip button is also in the finished-strip-actions div */
+.finished-strip-actions {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.finished-strip-actions button {
+     /* Styles for buttons within this container */
+}
+
+.finished-strip-actions .view-strip-button {
+     background-color: #ff69b4; /* Hot pink */
+     color: white;
+}
+.finished-strip-actions .view-strip-button:hover:not(:disabled) {
+     background-color: #ff85c1;
+     transform: translateY(-1px);
+}
+
+
+/* Message displayed when no photos taken */
+.no-photos-msg {
+    font-size: 1.2em;
+    color: #e91e63; /* Pink message */
+    font-weight: bold;
+}
+
+
+/* --- Fullscreen Modal Styles --- */
+.modal-overlay {
+    position: fixed; /* Fixed position relative to the viewport */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+    display: flex; /* Use flexbox to center content */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    z-index: 1000; /* Ensure modal is on top of other content */
+    backdrop-filter: blur(5px); /* Optional: Blur background */
+}
+
+.modal-content {
+    position: relative; /* Needed for close button absolute positioning */
+    background-color: white; /* White background for the content area */
+    padding: 15px; /* Padding around the image inside the modal */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    max-width: 90%; /* Limit max width to 90% of viewport */
+    max-height: 90%; /* Limit max height to 90% of viewport */
+    overflow: auto; /* Add scrolling if content exceeds max dimensions */
+    display: flex; /* Use flex to center the image */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-image {
+    display: block; /* Ensure image is a block element */
+    max-width: 100%; /* Ensure image fits within modal content width */
+    max-height: calc(100vh - 60px); /* Limit image height to fit within viewport minus some margin/padding */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: contain; /* Scale image to fit within the bounds while maintaining aspect ratio */
+}
+
+.modal-close-button {
+    position: absolute; /* Absolute position relative to modal-content */
+    top: 10px; /* 10px from the top */
+    right: 10px; /* 10px from the right */
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    border: none;
+    border-radius: 50%; /* Make it round */
+    width: 30px; /* Fixed width */
+    height: 30px; /* Fixed height */
+    font-size: 1.5em; /* Large size for the 'x' symbol */
+    line-height: 1; /* Center the 'x' vertically */
+    text-align: center; /* Center the 'x' horizontally */
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 1010; /* Ensure button is above the image */
+    transition: background-color 0.2s ease;
+    padding: 0; /* Remove padding to keep it circular */
+    display: flex; /* Use flex to better center the symbol */
+    justify-content: center;
+    align-items: center;
+}
+.modal-close-button:hover {
+    background-color: rgba(255, 255, 255, 1); /* Solid white on hover */
 }

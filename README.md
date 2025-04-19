@@ -1,70 +1,74 @@
-# Getting Started with Create React App
+# ✨ Cute Photobooth Web App ✨
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A fun and interactive web-based photobooth application that allows users to capture moments using their camera and generate a unique, customizable photo strip, just like a real photobooth! This project was built as a portfolio piece to showcase frontend development skills.
 
-## Available Scripts
+## 🔗 Live Demo
 
-In the project directory, you can run:
+You can try the live version of the photobooth here:
 
-### `npm start`
+[**[Link to Your Deployed App]**](https://your-live-app-url.com)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 📸 Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Accesses user's webcam or phone camera.
+- Captures up to 4 photos in a sequence.
+- Includes a 3-second countdown timer before each photo capture.
+- Automatically captures the 2nd, 3rd, and 4th photos after the timer, following the initial click.
+- Allows pausing and resuming the automatic capture sequence.
+- Generates a vertical photo strip (600px x 1800px) with equal padding around and between photos, and a designated area for text at the bottom.
+- Customization options for the strip's background color and text content, color, and vertical placement.
+- Displays captured photos as small previews.
+- Provides a "View Strip!" option to see the final photo in a full-screen modal popup.
+- Allows downloading the final photo strip as a JPG image.
+- Designed with a cute and user-friendly interface.
 
-### `npm test`
+## 💻 Technologies Used
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **React:** Frontend JavaScript library for building the user interface.
+- **HTML5 Canvas API:** Used for drawing and combining the captured images, background, and text into a single final image on the client-side.
+- **`react-webcam`:** A React component wrapper for accessing the user's webcam via the `getUserMedia` browser API.
+- **CSS:** For styling the application and creating the cute photobooth look.
+- **JavaScript (ES6+):** Core language logic, handling browser APIs, state management, and timing.
 
-### `npm run build`
+## ▶️ Setup and Running Locally
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To get a copy of the project up and running on your local machine for development and testing:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1.  **Clone the repository:**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    ```bash
+    git clone [Your Repository URL]
+    cd cute-photobooth-app
+    ```
 
-### `npm run eject`
+    _(Replace `[Your Repository URL]` with the URL of your GitHub/GitLab/Bitbucket repository)_
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+2.  **Install dependencies:**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    ```bash
+    npm install
+    # or if you use yarn
+    yarn install
+    ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3.  **Start the development server:**
+    ```bash
+    npm start
+    # or if you use yarn
+    yarn start
+    ```
+    The app should open in your browser at `http://localhost:3000/`.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 💡 Future Enhancements
 
-## Learn More
+Possible future features include:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Adding more customization options (fonts, borders, stickers).
+- Implementing different collage layouts.
+- Allowing users to upload their own graphics/logos to add to the strip.
+- Adding image filters.
+- Improving performance for high-resolution captures.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 👤 Author
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [Ivan Suralta ](https://www.linkedin.com/in/ivan-suralta/)
